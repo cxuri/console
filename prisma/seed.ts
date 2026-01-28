@@ -1,9 +1,10 @@
-const { PrismaClient } = require('@prisma/client')
-const bcrypt = require('bcryptjs')
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+
+const prisma = new PrismaClient();
 
 async function main() {
-  const hashedPassword = await bcrypt.hash("Rivoa#123@", 10)
+  const hashedPassword = await bcrypt.hash("Rivoa#123@", 10);
   await prisma.user.upsert({
     where: { email: 'rivoatech@gmail.com' },
     update: {},
@@ -12,6 +13,7 @@ async function main() {
       password: hashedPassword,
       role: 'ADMIN',
     },
-  })
+  });
 }
-main()
+
+main();
